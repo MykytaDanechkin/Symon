@@ -1,5 +1,6 @@
 package com.mykyda.symon.security.service;
 
+import com.mykyda.symon.api.service.ProfileService;
 import com.mykyda.symon.security.database.entity.User;
 import com.mykyda.symon.security.database.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,8 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final ProfileService profileService;
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user " + username));
@@ -27,6 +30,13 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public User save(User userToSave) {
-        return userRepository.save(userToSave);
+        var savedUser = userRepository.save(userToSave);
+        profileService.createFromUser(savedUser);
+        return savedUser;
+    }
+
+    @Transactional
+    public void delete(Long id){
+        userRepository.deleteById(id);
     }
 }

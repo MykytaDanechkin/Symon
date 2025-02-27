@@ -23,12 +23,14 @@
 <!--    <div>Login with:</div>-->
 <!--    <a href="/oauth2/authorization/google">Google</a>-->
 <!--</div>-->
-
 <div th:if="${errors}">
     <p style="color: red" th:each="error : ${errors}" th:text="${error}">Error message</p>
 </div>
 <form action="/auth/registration">
     <button type="submit">Registration</button>
 </form>
+<div th:if="${param.access_error != null}">
+    <p style="color: red" th:text="${param.access_error}"></p>
+</div>
 </body>
 </html>

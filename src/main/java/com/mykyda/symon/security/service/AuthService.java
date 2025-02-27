@@ -53,6 +53,7 @@ public class AuthService {
                     .password(passwordEncoder.encode(rdd.getPassword()))
                     .role(Role.USER)
                     .username(rdd.getUsername())
+                    .avatar("https://symonappprofilepicturebucket.s3.eu-north-1.amazonaws.com/user.png")
                     .build();
             userService.save(user);
             return new ResponseEntity<>(HttpStatus.CREATED);
