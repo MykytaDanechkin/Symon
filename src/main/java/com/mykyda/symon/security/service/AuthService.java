@@ -1,5 +1,6 @@
 package com.mykyda.symon.security.service;
 
+import com.mykyda.symon.api.service.ProfileService;
 import com.mykyda.symon.security.database.entity.Role;
 import com.mykyda.symon.security.database.entity.User;
 import com.mykyda.symon.security.dto.LoginDto;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserService userService;
+
+    private final ProfileService profileService;
 
     private final AuthenticationManager authenticationManager;
 
@@ -55,7 +58,8 @@ public class AuthService {
                     .username(rdd.getUsername())
                     .avatar("https://symonappprofilepicturebucket.s3.eu-north-1.amazonaws.com/user.png")
                     .build();
-            userService.save(user);
+            var savedUser = userService.save(user);
+            profileService.createFromUser(savedUser);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("email already in use", HttpStatus.CONFLICT);

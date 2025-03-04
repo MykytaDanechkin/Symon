@@ -3,6 +3,7 @@ package com.mykyda.symon.api.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,6 @@ public class Show {
 
     Float userScore;
 
-    @OneToMany
-    Set<ShowReview> reviews;
+    @Transient
+    List<ShowReview> reviews;
 }

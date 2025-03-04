@@ -1,8 +1,10 @@
 package com.mykyda.symon.api.database.entity;
 
-import com.mykyda.symon.security.database.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+
+import java.sql.Timestamp;
 
 @Entity
 @AllArgsConstructor
@@ -17,14 +19,19 @@ public class ShowReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne
-    @JoinColumn(name="profile_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="profile_id")
     Profile profile;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Show show;
 
     Float score;
 
     String review;
+
+    String reviewTitle;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    Timestamp date;
 }

@@ -39,5 +39,6 @@ create table if not exists show_review
     user_id bigint not null references users (id) on delete cascade,
     show_id bigint not null references show (id) on delete cascade,
     review  text,
-    score   float
+    score   float,
+    date timestamp
 );

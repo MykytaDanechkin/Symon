@@ -2,11 +2,11 @@ package com.mykyda.symon.api.database.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "profile")
@@ -35,8 +35,12 @@ public class Profile {
 
     String secondaryColor;
 
-    @OneToMany(mappedBy="profile")
-    Set<ShowReview> showReviews;
+    String badge;
+
+    Integer reviews;
+
+    @Transient
+    List<ShowReview> showReviews;
 
 //    @ManyToMany
 //    Set<Game> reviewedGames;

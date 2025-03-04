@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+
+<p style="font-size: 100px; align-self: center">Homepage</p>
+<hr>
+<!--/*@thymesVar id="profile" type="com.mykyda.symon.api.dto.ProfileDTO"*/-->
+<div th:if="${profile} != null" , style="flex-direction: row">
+    <p th:text="${profile.username}">Username</p>
+    <img th:src="${profile.profilePicture}" style="width: 25px; height: 25px; border-radius: 15px" alt="none">
+    <p th:text="${profile.followed}">?</p>
+    <p th:text="${profile.following}">?</p>
+</div>
+<hr>
+<p>Recent reviews</p>
+<div th:if="${profile?.showReviews != null}">
+    <div style="border-color: black; border-width: 5px" th:each="review : ${profile.showReviews}">
+        <div>
+            <img style="width: 120px; height: 160px" th:src="${review.show.poster}" alt="none"/>
+            <a th:href="@{/review/show/{id}(id=${review.id})}" th:text="${review.show.title}">link</a>
+        </div>
+        <p th:text="|${review.reviewTitle} : ${review.review} : ${review.score}.|">review title: review</p>
+    </div>
+</div>
+</body>
+</html>

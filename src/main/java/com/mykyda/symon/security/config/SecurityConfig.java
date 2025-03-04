@@ -1,5 +1,6 @@
 package com.mykyda.symon.security.config;
 
+import com.mykyda.symon.security.database.entity.Role;
 import com.mykyda.symon.security.http.filter.JwtAuthenticationFilter;
 import com.mykyda.symon.security.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/home").authenticated()
+                        .requestMatchers("/auth/**","/review/**","/collectors","/shows","/games","/books").permitAll()
+                        .requestMatchers("/profile/**","/collect/**").authenticated()
                         .anyRequest().denyAll())
                 .userDetailsService(userService)
                 .exceptionHandling(e -> e.authenticationEntryPoint(new AuthenticationEntryPoint()))
